@@ -11,16 +11,15 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-  ssl: false // Disable SSL if not required
-});
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
 
 pool.connect((err, client, release) => {
   console.log(process.env.DB_PASSWORD);
+  console.log(process.env.DATABASE_URL); 
   if (err) {
     console.error('Error connecting to the database:', err.message);
   } else {
