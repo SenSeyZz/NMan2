@@ -10,22 +10,17 @@ const port = process.env.PORT || 3001;
 app.use(bodyParser.json());
 app.use(cors());
 
-const dbHost = process.env.DB_HOST;
-const dbUser = process.env.DB_USER;
-const dbPassword = process.env.DB_PASSWORD;
-const db = process.env.DB
-const dbPort = process.env.port
-const dbURI = process.env.DB_URI
-
 const pool = new Pool({
-  user: dbUser,
-  host: dbHost,
-  database: db,
-  password: dbPassword,
-  port: dbPort,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+  ssl: false // Disable SSL if not required
 });
 
 pool.connect((err, client, release) => {
+  console.log(process.env.DB_PASSWORD);
   if (err) {
     console.error('Error connecting to the database:', err.message);
   } else {
