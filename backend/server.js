@@ -5,7 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -15,6 +15,7 @@ const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
 const db = process.env.DB
 const dbPort = process.env.port
+const dbURI = process.env.DB_URI
 
 const pool = new Pool({
   user: dbUser,
